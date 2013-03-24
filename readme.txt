@@ -43,7 +43,7 @@ CHEST:
 -If you remove the chest: the key is still valid
 -if you lose the key: forget your chest!
 
-CHEST:
+DOOR:
 -place the door; in your inventory you find the key.
 -If you remove the door: the key is still valid
 -if you lose the key: forget your door!
