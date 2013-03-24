@@ -119,8 +119,8 @@ function doors:register_door(name, def)
 		groups = def.groups,
 		
 		
-		on_punch = function(pos, node, puncher)
-			if closed_by_key.has_locked_chest_privilege(pos, puncher) then
+		on_rightlick = function(pos, node, clicker)
+			if closed_by_key.has_locked_chest_privilege(pos, clicker) then
 				closed_by_key.on_punch_door(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
 			end
 		end,
@@ -156,8 +156,8 @@ function doors:register_door(name, def)
 		groups = def.groups,
 		
 		
-		on_punch = function(pos, node, puncher)
-			if closed_by_key.has_locked_chest_privilege(pos, puncher) then
+		on_rightclick = function(pos, node, clicker)
+			if closed_by_key.has_locked_chest_privilege(pos, clicker) then
 				closed_by_key.on_punch_door(pos, -1, name.."_b_1", name.."_t_2", name.."_b_2", {1,2,3,0})
 			end
 		end,
@@ -193,8 +193,8 @@ function doors:register_door(name, def)
 		groups = def.groups,
 		
 		
-		on_punch = function(pos, node, puncher)
-			if closed_by_key.has_locked_chest_privilege(pos, puncher) then
+		on_rightclick = function(pos, node, clicker)
+			if closed_by_key.has_locked_chest_privilege(pos, clicker) then
 				closed_by_key.on_punch_door(pos, 1, name.."_t_2", name.."_b_1", name.."_t_1", {3,0,1,2})
 			end
 		end,
@@ -231,8 +231,8 @@ function doors:register_door(name, def)
 		groups = def.groups,
 		
 		
-		on_punch = function(pos, node, puncher)
-			if closed_by_key.has_locked_chest_privilege(pos, puncher) then
+		on_rightclick = function(pos, node, clicker)
+			if closed_by_key.has_locked_chest_privilege(pos, clicker) then
 				closed_by_key.on_punch_door(pos, -1, name.."_b_2", name.."_t_1", name.."_b_1", {3,0,1,2})
 			end
 		end,
