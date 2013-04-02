@@ -1,7 +1,7 @@
 closed_chest 0.5
 Copyright (c) 2013 pandaro <padarogames@gmail.com>
 
-sourcecode:
+sourcecode:https://github.com/pandaro/closed_by_key
 code:GPLv3
 pictures:WTFPL
 depends:default
