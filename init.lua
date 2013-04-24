@@ -25,6 +25,7 @@ CLOSED DOOR
 -- expose api
 closed_by_key={}
 closed_by_key.block={}
+closed_by_key.door={}
 dofile(minetest.get_modpath("closed_by_key").."/chest.lua")
 dofile(minetest.get_modpath("closed_by_key").."/doors.lua")
 
@@ -98,7 +99,7 @@ end
 
 closed_by_key.on_blast_undestructable=function(pos)
   --print("ciao")
-  meta=minetest.env:get_meta(pos)
+  local meta=minetest.env:get_meta(pos)
   local inv=meta:get_inventory() 
   local list=inv:get_list("main")
   closed_by_key.block[minetest.pos_to_string(pos)]={meta:get_string("key_required"),list}
@@ -114,6 +115,9 @@ closed_by_key.after_blast_undestructable=function(pos,oldnode)
   inv:set_list("main",closed_by_key.block[minetest.pos_to_string(pos)][2])
   closed_by_key.block[minetest.pos_to_string(pos)]=nil
 end
+
+
+
 closed_by_key.has_locked_chest_privilege=function(pos, player)--check privilege function:search key or keyring in chest or player inv 
 	local meta=minetest.env:get_meta(pos)
 	local player_inv = player:get_inventory()
@@ -248,38 +252,80 @@ end
 closed_by_key.on_dig_door=function(pos,digger)--dig the door
 	local meta=minetest.env:get_meta(pos)
 	local code=meta:get_string("key_required")
+	local can_destruct=meta:set_string("can_destruct", "true")
 	local inv=digger:get_inventory()
 	minetest.env:remove_node(pos)
 	minetest.log("action", digger:get_player_name()..
 		    " remove closed steel door at "..minetest.pos_to_string(pos))		    
-	inv:add_item("main",{name="closed_by_key:door_steel",metadata=code})
+	inv:add_item("main",{name="closed_by_key:door_mese",metadata=code})
+	local can_destruct=meta:set_string("can_destruct", "false")
 end
 
 closed_by_key.dig_other_door=function (pos, name)--dig the other node that make the door(copy from PilzAdam door) 
 	if minetest.env:get_node(pos).name == name then
+		local meta=minetest.env:get_meta(pos)
+		local can_destruct=meta:set_string("can_destruct", "true")
 		minetest.env:remove_node(pos)
+		local can_destruct=meta:set_string("can_destruct", "false")
 		
 	end
 end
 
-closed_by_key.on_punch_door=function(pos, dir, check_name, replace, replace_dir, params)--open the door(copy from PilzAdam door
+closed_by_key.on_rightclick_door=function(pos, dir, check_name, replace, replace_dir, params)--open the door(copy from PilzAdam door
+	print("rightclick door start dir= " ..tostring(dir))
 	pos.y = pos.y+dir
 	if not minetest.env:get_node(pos).name == check_name then
 		return
 	end
 	local p2 = minetest.env:get_node(pos).param2
 	p2 = params[p2+1]
-	
+
 	local meta = minetest.env:get_meta(pos):to_table()
+	local beta =minetest.env:get_meta(pos)
+	local can_destruct=beta:set_string("can_destruct", "true")
 	minetest.env:set_node(pos, {name=replace_dir, param2=p2})
 	minetest.env:get_meta(pos):from_table(meta)
-	
+	local can_destruct=beta:set_string("can_destruct", "false")
+
 	pos.y = pos.y-dir
+
 	meta = minetest.env:get_meta(pos):to_table()
+	local beta =minetest.env:get_meta(pos)
+	local can_destruct=beta:set_string("can_destruct", "true")
 	minetest.env:set_node(pos, {name=replace, param2=p2})
 	minetest.env:get_meta(pos):from_table(meta)
+	local can_destruct=beta:set_string("can_destruct", "false")
+	print("rightclick door end")
 end
 
+closed_by_key.on_destruct_door=function(pos)
+	print("on_destruct_door start")
+	local meta=minetest.env:get_meta(pos)
+	local can_destruct=meta:get_string("can_destruct")
+	print("can_destruct = "..tostring(can_destruct))
+	if can_destruct == "false" then
+		closed_by_key.door[minetest.pos_to_string(pos)]=meta:get_string("key_required")
+	else
+		closed_by_key.door[minetest.pos_to_string(pos)]="non determinato"
+	end
+	print("on_destruct_door end")
+end
+
+closed_by_key.after_destruct_door=function(pos,oldnode)
+	print("after_destruct_door start")
+
+	if closed_by_key.door[minetest.pos_to_string(pos)] == "non determinato" then
+		print("non è il caso")
+	else
+
+		minetest.env:set_node(pos,oldnode)
+		local meta=minetest.env:get_meta(pos)
+		meta:set_string("key_required",closed_by_key.door[minetest.pos_to_string(pos)])
+		print("key required = "..tostring(closed_by_key.door[minetest.pos_to_string(pos)]))
+		closed_by_key.door[minetest.pos_to_string(pos)]=nil		
+	end
+	print("after_destruct_door end")
+end
 
 --generate alphanumeric random
 local Chars = {}
