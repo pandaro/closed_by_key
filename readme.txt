@@ -16,15 +16,38 @@ S=steel ingot
 C=chest
 D=dry shrub
 M=Mese
+T=Stone
 
--Closed chest:
-S
-C
+-Steel chest:
 
--Closed door:
+SSS
+SOS
+SSS
+
+-Steel door:
 SS
 SS
 SS
+
+-Disguised chest:
+TTT
+TOT
+TTT
+
+-Disguised door:
+TT
+TT
+TT
+
+Mese chest:
+MMM
+MOM
+MMM
+
+Mese door:
+MM
+MM
+MM
 
 -Empty keyring:
 DOD
@@ -39,7 +62,7 @@ C
 
 How to:
 CHEST:
--In the trunk you will find his key;Take it, and put it in your inventory.
+-place the chest; in your inventory you find the key.
 -If you remove the chest: the key is still valid
 -if you lose the key: forget your chest!
 
@@ -51,6 +74,7 @@ DOOR:
 KEY:
 If the correct key is in your inventory or in the chest: you can open the chest.
 If the correct key is in your inventory:you can open the door.
+
 KEYRING:
 Merge multiple keys on a keyring.
 
@@ -90,14 +114,21 @@ closed_chest_v0.4:	-add:Only those who have the key can see the contents;
 			-ONLY IF YOU WANT:uncomment line from-to to add explosion sensity.
 			
 closed_chest_v0.5:	-add:closed by key door;
-			-test:improved:mod architecture, now chest and item definition are store in chest.init;function in init.lua;door in door.lua.
+			-test:improved:mod architecture, now chest and item definition are store in chest.init;function in init.lua;door 				 in door.lua.
+
+closed_by_key_v0.6	-rename my mod, now called: "closed by key";
+			-open door and chest with rightclick;
+			-add disguised chest and door: very mimetic, but destructable;
+			-add mese chest and door: you can not destroy them;
+			-add on explode drop item if the chest is destructable;
+			-texture update a little bit;
+			-push code on GITHUB;
+			-minor change.
 			
 			  
 
 TO DO:
 -maybe:key colour
-**************prevent those who do not have the key to see the contents of the chest(more_chest-like);
--poll:if it explodes with intensity (very high) drops a percentage of its objects (I do not know, we can talk about);
 -better crafting;
 -much more.
       

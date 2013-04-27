@@ -1,30 +1,11 @@
-minetest.register_craftitem("closed_by_key:key", {--define key
-	description = "key",
-	inventory_image = "key.png",
-	stack_max = 1,	
-}) 
-	
-minetest.register_craftitem("closed_by_key:empty_keyring", {	--def empty keyring
-	description = "empty keyring",
-	inventory_image = "empty_keyring.png",
-	stack_max = 99,
-})
-	
-minetest.register_craftitem("closed_by_key:full_keyring", {	--def full keyring
-	description = "full_keyring",
-	inventory_image = "full_keyring.png",
-	stack_max = 1,
-
-})
-	
 
     
-minetest.register_node("closed_by_key:chest", {	--define a closed by key chest
+minetest.register_node("closed_by_key:steel_chest", {	--define a closed by key chest
 	description = "closed_by_key",
-	tiles = {"closed_by_key_side.png", "closed_by_key_side.png", "closed_by_key_side.png",
-					"closed_by_key_side.png", "closed_by_key_side.png", "closed_by_key_front.png"},
+	tiles = {"closed_by_key_steel_chest_side.png", "closed_by_key_steel_chest_side.png", "closed_by_key_steel_chest_side.png",
+		"closed_by_key_steel_chest_side.png", "closed_by_key_steel_chest_side.png","closed_by_key_steel_chest_front.png"},
 	is_ground_content = true,
-	groups = {cracky=1},
+	groups = {cracky=1,can_destruct=1},
 	drop = "",
 	legacy_mineral = true,
 	stack_max = 1,
@@ -37,7 +18,7 @@ minetest.register_node("closed_by_key:chest", {	--define a closed by key chest
 	end,
 
 	on_dig=function(pos,node,digger)
-	  return closed_by_key.on_dig_chest(pos,node,digger)
+	  return closed_by_key.on_dig_chest(pos,node,digger,"closed_by_key:steel_chest")
 	end,	  
 
 	on_rightclick=function(pos,node,clicker) --chek if clicker have permission  
@@ -56,21 +37,18 @@ minetest.register_node("closed_by_key:chest", {	--define a closed by key chest
 		minetest.log("action", player:get_player_name()..
 				" takes stuff from closed chest at "..minetest.pos_to_string(pos))
 	end,
---uncomment to enable sensitivity to explosions (experimental)
+
 	on_destruct=function(pos)
 		return closed_by_key.on_destruct_destructable(pos,50)
 	end,
--- 
--- 	on_blast=function(pos,intensity)
--- 		print("on:blast")
--- 	end,
 })
 
 minetest.register_node("closed_by_key:mese_chest", {	--define a closed by key chest
-	description = "disguised_chest",
-	tiles = {"default_mese.png"},
+	description = "mese_chest",
+	tiles = {"closed_by_key_mese_chest_side.png","closed_by_key_mese_chest_side.png","closed_by_key_mese_chest_side.png",
+	"closed_by_key_mese_chest_side.png","closed_by_key_mese_chest_side.png","closed_by_key_mese_chest_front.png"},
 	is_ground_content = true,
-	groups = {cracky=1},
+	groups = {cracky=1,can_destruct=0},
 	drop = "",
 	legacy_mineral = true,
 	stack_max = 1,
@@ -79,11 +57,13 @@ minetest.register_node("closed_by_key:mese_chest", {	--define a closed by key ch
 	pointable=true,
 		
 	after_place_node = function(pos,placer,itemstack)--assign a code & create a unique key
+		local meta=minetest.env:get_meta(pos)
+		local can_destruct=meta:set_string("can_destruct","false")
 	  return closed_by_key.after_place_chest(pos,placer,itemstack)
 	end,
 
 	on_dig=function(pos,node,digger)
-	  return closed_by_key.on_dig_chest(pos,node,digger)
+	  return closed_by_key.on_dig_chest(pos,node,digger,"closed_by_key:mese_chest")
 	end,	  
 
 	on_rightclick=function(pos,node,clicker) --chek if clicker have permission  
@@ -115,10 +95,10 @@ minetest.register_node("closed_by_key:mese_chest", {	--define a closed by key ch
 	
 minetest.register_node("closed_by_key:disguised_chest", {	--define a closed by key chest
 	description = "disguised_chest",
-	tiles = {"default_stone.png","default_stone.png","default_stone.png","default_stone.png","default_stone.png","default_stone.png"},
+	tiles = {"default_stone.png"},
 	is_ground_content = true,
-	groups = {cracky=1},
-	drop = "closed_by_key:disguised_chest",
+	groups = {cracky=1,can_destruct=1},
+	drop = "",
 	legacy_mineral = true,
 	stack_max = 1,
 	paramtype2 = "facedir",
@@ -130,7 +110,7 @@ minetest.register_node("closed_by_key:disguised_chest", {	--define a closed by k
 	end,
 
 	on_dig=function(pos,node,digger)
-	  return closed_by_key.on_dig_chest(pos,node,digger)
+	  return closed_by_key.on_dig_chest(pos,node,digger,"closed_by_key:disguised_chest")
 	end,	  
 
 	on_rightclick=function(pos,node,clicker) --chek if clicker have permission  
@@ -150,7 +130,7 @@ minetest.register_node("closed_by_key:disguised_chest", {	--define a closed by k
 				" takes stuff from closed chest at "..minetest.pos_to_string(pos))
 	end,	
 	on_destruct=function(pos)
-		return closed_by_key.on_destruct_destructable(pos,0)
+		return closed_by_key.on_destruct_destructable(pos,100)
 	end,
 })
 	
@@ -215,15 +195,58 @@ minetest.register_node("closed_by_key:key_manager", {	--def a keymanager
 				" takes stuff from locked chest at "..minetest.pos_to_string(pos))
 	end,
 })
+
+minetest.register_craftitem("closed_by_key:key", {--define key
+	description = "key",
+	inventory_image = "key.png",
+	stack_max = 1,	
+}) 
+	
+minetest.register_craftitem("closed_by_key:empty_keyring", {	--def empty keyring
+	description = "empty keyring",
+	inventory_image = "empty_keyring.png",
+	stack_max = 99,
+})
+	
+minetest.register_craftitem("closed_by_key:full_keyring", {	--def full keyring
+	description = "full_keyring",
+	inventory_image = "full_keyring.png",
+	stack_max = 1,
+
+})
+
 --def craft
 minetest.register_craft({
 	inventory_image='locked_chest_front.png',
 	stack_max =1,
-	output = 'closed_by_key:chest',
+	output = 'closed_by_key:steel_chest',
 	recipe = {
-		{'default:steel_ingot'},
-		{'default:chest',},		
+		{'default:steel_ingot','default:steel_ingot','default:steel_ingot'},
+		{'default:steel_ingot','','default:steel_ingot'},
+		{'default:steel_ingot','default:steel_ingot','default:steel_ingot'},		
 	}	
+})
+
+minetest.register_craft({
+	inventory_image='default_stone.png',
+	stack_max =1,
+	output = 'closed_by_key:disguised_chest',
+	recipe = {
+		{'default:stone','default:stone','default:stone'},
+		{'default:stone','','default:stone'},
+		{'default:stone','default:stone','default:stone'},
+	}
+})
+
+minetest.register_craft({
+	inventory_image='closed_by_key_mese_chest_front.png',
+	stack_max =1,
+	output = 'closed_by_key:mese_chest',
+	recipe = {
+			{'default:mese','default:mese','default:mese'},
+			{'default:mese','','default:mese'},
+			{'default:mese','default:mese','default:mese'},
+		}
 })
 
 minetest.register_craft({

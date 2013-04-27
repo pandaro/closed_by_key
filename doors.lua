@@ -116,7 +116,7 @@ function doors:register_door(name, def)
 		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1].."^[transformfx"},
 		paramtype = "light",
 		paramtype2 = "facedir",
-		drop = name,
+		drop = "",
 		stack_max = 1,
 		drawtype = "nodebox",
 		node_box = {
@@ -129,24 +129,24 @@ function doors:register_door(name, def)
 		},
 		groups = def.groups,
 		on_punch=function(pos)
-			print("on punch B1 start")
-			print(tostring(def.can_destruct))
-			print("on punch B1 end")
+			--print("on punch B1 start")
+			--print(tostring(def.can_destruct))
+			--print("on punch B1 end")
 		end,
 		on_construct=function(pos)
-			print("cosB1 start ")
-			print("cosB1 end ")
+			--print("cosB1 start ")
+			--print("cosB1 end ")
 		end,
 		on_rightclick = function(pos, node, clicker)
-			print("on rightclick B1 start")
+			--print("on rightclick B1 start")
 			if closed_by_key.has_locked_chest_privilege(pos, clicker) then
 				closed_by_key.on_rightclick_door(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
 			end
-			print("on rightclick B1 end")
+			--print("on rightclick B1 end")
 		end,
 		
 		on_dig=function(pos,node,digger)
-			print("on dig B1 start")			
+			--print("on dig B1 start")			
 		  	if  closed_by_key.has_locked_chest_privilege(pos,digger) then
 		    		closed_by_key.on_dig_door(pos,digger)
 		    		pos.y = pos.y+1
@@ -155,19 +155,19 @@ function doors:register_door(name, def)
 		    		minetest.log("action", digger:get_player_name()..
 				" try to remove closed steel door at "..minetest.pos_to_string(pos))	 
 		  	end		
-			print("on dig b1 end")
+			--print("on dig b1 end")
 		end,
 
 		on_destruct=function(pos)
-			print("desB1 start")
+			--print("desB1 start")
 			closed_by_key.on_destruct_door(pos)
-			print("desB1 end")
+			--print("desB1 end")
 		end,
 
 		after_destruct=function(pos,oldnode)
-			print("aftB1start")
+			--print("aftB1start")
 			closed_by_key.after_destruct_door(pos,oldnode)
-			print("aftB1end")
+			--print("aftB1end")
 		end,
 
 	})
@@ -176,7 +176,7 @@ function doors:register_door(name, def)
 		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1].."^[transformfx"},
 		paramtype = "light",
 		paramtype2 = "facedir",
-		drop = name,
+		drop = "",
 		stack_max = 1,
 		drawtype = "nodebox",
 		node_box = {
@@ -190,26 +190,26 @@ function doors:register_door(name, def)
 		groups = def.groups,
 
 		on_punch=function(pos)
-			print("on punch T1 start")
-			print(tostring(def.can_destruct))
-			print("on punch T1 end")
+			--print("on punch T1 start")
+			--print(tostring(def.can_destruct))
+			--print("on punch T1 end")
 		end,
 
 		on_construct=function(pos)
-			print("cosT1 start ")
-			print("cosT1 end")
+			--print("cosT1 start ")
+			--print("cosT1 end")
 		end,		
 		
 		on_rightclick = function(pos, node, clicker)
-			print("on rightclick T1 start")
+			--print("on rightclick T1 start")
 			if closed_by_key.has_locked_chest_privilege(pos, clicker) then
 				closed_by_key.on_rightclick_door(pos, -1, name.."_b_1", name.."_t_2", name.."_b_2", {1,2,3,0})
 			end
-			print("on rightclick T1 end")
+			--print("on rightclick T1 end")
 		end,
 
 		on_dig=function(pos,node,digger)
-			print("on dig T1 start")
+			--print("on dig T1 start")
 		  	if  closed_by_key.has_locked_chest_privilege(pos,digger) then		
 		    		closed_by_key.on_dig_door(pos,digger)
 		    		pos.y = pos.y-1
@@ -218,19 +218,19 @@ function doors:register_door(name, def)
 		    		minetest.log("action", digger:get_player_name()..
 				" try to remove closed steel door at "..minetest.pos_to_string(pos))
 		  	end
-			print("on dig T1 end")
+			--print("on dig T1 end")
 		end,
 
 		on_destruct=function(pos)
-			print("des T1 start")
+			--print("des T1 start")
 			closed_by_key.on_destruct_door(pos)
-			print("des T1 end")
+			--print("des T1 end")
 		end,
 
 		after_destruct=function(pos,oldnode)
-			print("aft T1 start")
+			--print("aft T1 start")
 			closed_by_key.after_destruct_door(pos,oldnode)
-			print("aft T1 end")
+			--print("aft T1 end")
 		end,
 
 	})
@@ -239,7 +239,7 @@ function doors:register_door(name, def)
 		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1].."^[transformfx", tb[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
-		drop = name,
+		drop = "",
 		stack_max = 1,
 		drawtype = "nodebox",
 		node_box = {
@@ -253,26 +253,26 @@ function doors:register_door(name, def)
 		groups = def.groups,
 
 		on_punch=function(pos)
-			print("on punch B2 start")
-			print(tostring(def.can_destruct))
-			print("on punch B2 end")
+			--print("on punch B2 start")
+			--print(tostring(def.can_destruct))
+			--print("on punch B2 end")
 		end,
 		
 		on_construct=function(pos)
-			print("cos B2 start ")
-			print("cos B2 end")
+			--print("cos B2 start ")
+			--print("cos B2 end")
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
-			print("on rightclick B2 start")
+			--print("on rightclick B2 start")
 			if closed_by_key.has_locked_chest_privilege(pos, clicker) then
 				closed_by_key.on_rightclick_door(pos, 1, name.."_t_2", name.."_b_1", name.."_t_1", {3,0,1,2})
 			end
-			print("on rightclick B2 end")
+			--print("on rightclick B2 end")
 		end,
 
 		on_dig=function(pos,node,digger)
-			print("on dig B2 start")
+			--print("on dig B2 start")
 			if  closed_by_key.has_locked_chest_privilege(pos,digger) then	
 		    		closed_by_key.on_dig_door(pos,digger)
 		    		pos.y = pos.y+1
@@ -282,17 +282,17 @@ function doors:register_door(name, def)
 				" try to remove closed steel door at "..minetest.pos_to_string(pos))
 		  	end
 		
-			print("on dig B2 end")
+			--print("on dig B2 end")
 		end,	
 		on_destruct=function(pos)
-			print("des B2 start")
+			--print("des B2 start")
 			closed_by_key.on_destruct_door(pos)
-			print("des B2 end")
+			--print("des B2 end")
 		end,
 		after_destruct=function(pos,oldnode)
-			print("aft B2 start")
+			--print("aft B2 start")
 			closed_by_key.after_destruct_door(pos,oldnode)
-			print("aft B2 end")
+			--print("aft B2 end")
 		end,
 	})
 	
@@ -300,7 +300,7 @@ function doors:register_door(name, def)
 		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1].."^[transformfx", tt[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
-		drop = name,
+		drop = "",
 		drawtype = "nodebox",
 		stack_max = 1,
 		node_box = {
@@ -314,27 +314,28 @@ function doors:register_door(name, def)
 		groups = def.groups,
 
 		on_punch=function(pos)
-			print("on punch T2 start")
-			print(tostring(def.can_destruct))
-			print("on punch T2 end")
+			--print("on punch T2 start")
+			--print(tostring(def.can_destruct))
+			--print("on punch T2 end")
 		end,
 		
 		on_construct=function(pos)
-			print("cos T2 start ")
-			print("cos T2 end")
+			--print("cos T2 start ")
+			
+			--print("cos T2 end")
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
-			print("on rightclick T2 start")
+			--print("on rightclick T2 start")
 
 
 			if closed_by_key.has_locked_chest_privilege(pos, clicker) then
 				closed_by_key.on_rightclick_door(pos, -1, name.."_b_2", name.."_t_1", name.."_b_1", {3,0,1,2})
 			end
-			print("on rightclick T2 end")			
+			--print("on rightclick T2 end")			
 		end,
 		on_dig=function(pos,node,digger)
-			print("on dig T2 start")
+			--print("on dig T2 start")
 		  	if  closed_by_key.has_locked_chest_privilege(pos,digger) then
 		    		closed_by_key.on_dig_door(pos,digger)
 		    		pos.y = pos.y-1
@@ -343,18 +344,18 @@ function doors:register_door(name, def)
 		    		minetest.log("action", digger:get_player_name()..
 				" try to remove closed steel door at "..minetest.pos_to_string(pos))
 			end
-			print("on dig T2 end")
+			--print("on dig T2 end")
 
 		end,		
 		on_destruct=function(pos)
-			print("des T2 start")
+			--print("des T2 start")
 			closed_by_key.on_destruct_door(pos)
-			print("des T2 end")
+			--print("des T2 end")
 		end,
 		after_destruct=function(pos,oldnode)
-			print("aft T2 start")
+			--print("aft T2 start")
 			closed_by_key.after_destruct_door(pos,oldnode)
-			print("aft T2 end")
+			--print("aft T2 end")
 		end,
 	})
 	
@@ -366,32 +367,34 @@ doors:register_door("closed_by_key:door_steel", {
 	description = "Steel Door",
 	inventory_image = "door_steel.png",
 	stack_max = 1,
-	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1,can_destruct=1},
 	tiles_bottom = {"door_steel_b.png", "door_grey.png"},
 	tiles_top = {"door_steel_a.png", "door_grey.png"},
 	only_placer_can_open = true,
+	can_destruct=true,
 })
 
 doors:register_door("closed_by_key:door_mese", {
 	description = "Mese Door",
-	drop = "",
+	drop = "nil",
 	inventory_image = "door_mese.png",
 	stack_max = 1,
-	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1,can_destruct=0},
 	tiles_bottom = {"door_mese_b.png", "door_mese_side.png"},
 	tiles_top = {"door_mese_a.png", "door_mese_side.png"},
 	only_placer_can_open = true,
 	can_destruct=false,
 })
 	
-doors:register_door("closed_by_key:fake_door", {
-	description = "Fake Door",
-	inventory_image = "default_stone.png",
+doors:register_door("closed_by_key:disguised_door", {
+	description = "Disguised Door",
+	inventory_image = "disguised_door.png",
 	stack_max = 1,
-	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1,can_destruct=1},
 	tiles_bottom = {"default_stone.png", "door_grey.png"},
 	tiles_top = {"default_stone.png", "door_grey.png"},
 	only_placer_can_open = true,
+	can_destruct=true,
 })
 
 minetest.register_craft({
@@ -404,9 +407,29 @@ minetest.register_craft({
 	}
 })
 
--- minetest.register_alias("closed_by_key:door_wood_a_c", "closed_by_key:door_wood_t_1")
--- minetest.register_alias("closed_by_key:door_wood_a_o", "closed_by_key:door_wood_t_1")
--- minetest.register_alias("closed_by_key:door_wood_b_c", "closed_by_key:door_wood_b_1")
--- minetest.register_alias("closed_by_key:door_wood_b_o", "closed_by_key:door_wood_b_1")
+minetest.register_craft({
+	output = "closed_by_key:door_mese",
+	stack_max = 1,
+	recipe = {
+		{"default:mese", "default:mese"},
+		{"default:mese", "default:mese"},
+		{"default:mese", "default:mese"}
+	}
+})
+
+minetest.register_craft({
+	output = "closed_by_key:disguised_door",
+	stack_max = 1,
+	recipe = {
+		{"default:stone", "default:stone"},
+		{"default:stone", "default:stone"},
+		{"default:stone", "default:stone"}
+	}
+})
+
+ --minetest.register_alias("closed_by_key:door_wood_a_c", "closed_by_key:door_wood_t_1")
+ --minetest.register_alias("closed_by_key:door_wood_a_o", "closed_by_key:door_wood_t_1")
+ --minetest.register_alias("closed_by_key:door_wood_b_c", "closed_by_key:door_wood_b_1")
+ --minetest.register_alias("closed_by_key:door_wood_b_o", "closed_by_key:door_wood_b_1")
  
  
