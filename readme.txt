@@ -1,4 +1,4 @@
-closed_chest 0.5
+closed_chest 0.6
 Copyright (c) 2013 pandaro <padarogames@gmail.com>
 
 sourcecode:https://github.com/pandaro/closed_by_key
